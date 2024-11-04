@@ -29,9 +29,8 @@ public class Pedido {
     @JoinColumn(name = "fornecedor_id")
     private Fornecedor fornecedor;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "produto_id")
-    private Set<Produto> produto;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ItemPedido> itemPedidos;
 
     private LocalDate dataDeInclusao;
 
@@ -69,12 +68,12 @@ public class Pedido {
         this.fornecedor = fornecedor;
     }
 
-    public Set<Produto> getProduto() {
-        return produto;
+    public Set<ItemPedido> getItemPedidos() {
+        return itemPedidos;
     }
 
-    public void setProduto(Set<Produto> produto) {
-        this.produto = produto;
+    public void setItemPedidos(Set<ItemPedido> itemPedidos) {
+        this.itemPedidos = itemPedidos;
     }
 
     public LocalDate getDataDeInclusao() {
@@ -96,14 +95,14 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Long id, String nome, Cliente cliente, Fornecedor fornecedor, Set<Produto> produto,
+    public Pedido(Long id, String nome, Cliente cliente, Fornecedor fornecedor, Set<ItemPedido> itemPedidos,
             LocalDate dataDeInclusao, LocalDate dataDeAlteracao) {
         this.id = id;
         this.nome = nome;
         this.cliente = cliente;
         this.fornecedor = fornecedor;
-        this.produto = produto;
+        this.itemPedidos = itemPedidos;
         this.dataDeInclusao = dataDeInclusao;
         this.dataDeAlteracao = dataDeAlteracao;
-    }
+    }    
 }
